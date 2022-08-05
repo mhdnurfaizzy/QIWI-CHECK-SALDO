@@ -9,15 +9,10 @@ const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 
 (async() => {
     
-    // let prox = fs.readFileSync("proxy.txt", { encoding: "utf-8" }).split("\n");
-
     puppeteer.use(StealthPlugin());
 
     const width = 1600
     const height = 1200
-
-    // const userProx = "ingp1020625";
-    // const passProx = "nkRa01PBY7";
 
     const userAgent = new UserAgent({
         deviceCategory: "desktop",
@@ -30,7 +25,6 @@ const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 
 
     for (i in splitFile) {
-        // console.log(chalk.green('Memulai Akun Baru'))
         const option = {
             waitUntil : 'load',
             setTimeout : 9999999,
@@ -55,11 +49,9 @@ const StealthPlugin = require('puppeteer-extra-plugin-stealth');
             devtools: false,
             args: [
               `--user-agent=${userAgent}`,
-            //   `--proxy-server=${prox}`,
              ],
              ignoreHTTPSErrors: true,
-        }
-    );
+        });
 
     var files = fs.readFileSync('./akun.txt', 'utf-8');
     var lines = files.split('\n')
@@ -67,17 +59,12 @@ const StealthPlugin = require('puppeteer-extra-plugin-stealth');
     var number = splitFile[i].split('|')[0]
     var password = splitFile[i].split('|')[1]
 
+
     const page = await browser.newPage();
-    // await page.authenticate({
-    //     username: userProx,
-    //     password: passProx,
-    //   });
     page.setViewport({width: 1300, height: 900, deviceScaleFactor: 1});
     await page.goto("https://qiwi.com", {waitUntil : 'load', timeout: 0});
     console.log("START CEK SALDO \n"+ number);
 
-
-    // LOGIN
     try {
 
     await page.waitForSelector('.css-5dt7iz')
@@ -101,7 +88,6 @@ const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 
     await delay(5000)
 
-    // CHECK SALDO
     try {
 
         await page.waitForSelector('.account-info-amount-41', { timeout :0});
@@ -129,6 +115,8 @@ const StealthPlugin = require('puppeteer-extra-plugin-stealth');
     await fs.writeFileSync(`akun.txt`, lines.join('\n'))
 
     await delay(3000)
+
+
     
     await browser.close()
 }
