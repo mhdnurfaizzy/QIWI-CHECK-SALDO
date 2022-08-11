@@ -9,5 +9,7 @@ Installation:
 
 -npm i puppeteer-extra chalk randomstring moment fs-extra puppeteer-extra-plugin-stealth delay
 
+- in akun.txt add phone|pass
+
 
 @create by JIH
